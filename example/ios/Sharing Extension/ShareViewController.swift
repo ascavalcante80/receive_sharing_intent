@@ -12,8 +12,8 @@ import MobileCoreServices
 import Photos
 
 class ShareViewController: SLComposeServiceViewController {
-    var hostAppBundleIdentifier = ""
-    var appGroupId = ""
+    var hostAppBundleIdentifier = "com.dexan.sharing"
+    var appGroupId = "group.com.dexan.sharing"
     let sharedKey = "ShareKey"
     var sharedMedia: [SharedMediaFile] = []
     var sharedText: [String] = []
@@ -56,16 +56,16 @@ class ShareViewController: SLComposeServiceViewController {
         if let content = extensionContext!.inputItems[0] as? NSExtensionItem {
             if let contents = content.attachments {
                 for (index, attachment) in (contents).enumerated() {
-                    if attachment.hasItemConformingToTypeIdentifier(imageContentType) {
-                        handleImages(content: content, attachment: attachment, index: index)
-                    } else if attachment.hasItemConformingToTypeIdentifier(textContentType) {
-                        handleText(content: content, attachment: attachment, index: index)
-                    } else if attachment.hasItemConformingToTypeIdentifier(fileURLType) {
-                        handleFiles(content: content, attachment: attachment, index: index)
-                    } else if attachment.hasItemConformingToTypeIdentifier(urlContentType) {
-                        handleUrl(content: content, attachment: attachment, index: index)
-                    } else if attachment.hasItemConformingToTypeIdentifier(videoContentType) {
-                        handleVideos(content: content, attachment: attachment, index: index)
+                    if (attachment as AnyObject).hasItemConformingToTypeIdentifier(imageContentType) {
+                        handleImages(content: content, attachment: attachment as! NSItemProvider, index: index)
+                    } else if (attachment as AnyObject).hasItemConformingToTypeIdentifier(textContentType) {
+                        handleText(content: content, attachment: attachment as! NSItemProvider, index: index)
+                    } else if (attachment as AnyObject).hasItemConformingToTypeIdentifier(fileURLType) {
+                        handleFiles(content: content, attachment: attachment as! NSItemProvider, index: index)
+                    } else if (attachment as AnyObject).hasItemConformingToTypeIdentifier(urlContentType) {
+                        handleUrl(content: content, attachment: attachment as! NSItemProvider, index: index)
+                    } else if (attachment as AnyObject).hasItemConformingToTypeIdentifier(videoContentType) {
+                        handleVideos(content: content, attachment: attachment as! NSItemProvider, index: index)
                     }
                 }
             }
@@ -305,8 +305,8 @@ class ShareViewController: SLComposeServiceViewController {
         //        let scale = UIScreen.main.scale
         assetImgGenerate.maximumSize =  CGSize(width: 360, height: 360)
         do {
-            let img = try assetImgGenerate.copyCGImage(at: CMTimeMakeWithSeconds(600, preferredTimescale: Int32(1.0)), actualTime: nil)
-            try UIImage.pngData(UIImage(cgImage: img))()?.write(to: thumbnailPath)
+            let img = try assetImgGenerate.copyCGImage(at: CMTimeMakeWithSeconds(600, Int32(1.0)), actualTime: nil)
+//            try UIImage.UIImagePNGRepresentation(UIImage(cgImage: img))()?.write(to: thumbnailPath)
             saved = true
         } catch {
             saved = false

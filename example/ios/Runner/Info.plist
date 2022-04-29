@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>AppGroupId</key>
-	<string>$(CUSTOM_GROUP_ID)</string>
+	<string>group.com.dexan.sharing</string>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -26,7 +28,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-            		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>ShareMedia-$(PRODUCT_BUNDLE_IDENTIFIER)</string>
